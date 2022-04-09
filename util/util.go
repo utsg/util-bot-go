@@ -16,7 +16,7 @@ func getBodyFromResponse(response http.Response) string {
 	return string(body)
 }
 
-func isListCointains(list []string, value string) bool {
+func IsListContains(list []string, value string) bool {
 	for _, val := range list {
 		if value == val {
 			return true
@@ -27,7 +27,7 @@ func isListCointains(list []string, value string) bool {
 
 func IsUserAllowed(userName string) bool {
 	accessList := strings.Split(os.Getenv("ACCESS_LIST"), ",")
-	return isListCointains(accessList, userName)
+	return IsListContains(accessList, userName)
 }
 
 func GetIp() string {
