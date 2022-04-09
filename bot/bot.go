@@ -3,6 +3,7 @@ package bot
 import (
 	"log"
 	"os"
+	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	util "github.com/utsg/util-bot-go/util"
@@ -16,6 +17,12 @@ func executeCommand(update tgbotapi.Update) tgbotapi.MessageConfig {
 		msg.Text = util.GetIp()
 	}
 
+	return msg
+}
+
+func addTorrent(update tgbotapi.Update) tgbotapi.MessageConfig {
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
+	util.AddTorrent(update.Message.Text[1:len(update.Message.Text)-1])
 	return msg
 }
 
@@ -36,6 +43,10 @@ func RunBot() {
 
 			if update.Message.IsCommand() {
 				bot.Send(executeCommand(update))
+			}
+
+			if strings.HasPrefix(update.Message.Text, "+")  {
+				bot.Send(addTorrent(update))
 			}
 		}
 	}
