@@ -1,13 +1,14 @@
-FROM golang:1.18 as builder
+FROM golang:1.18-bullseye as builder
 
 WORKDIR /app
-
 COPY . .
 RUN go mod tidy
 RUN go mod download
+RUN CGO_ENABLED=1 GOOS=linux go build -a -ldflags '-linkmode external -extldflags "-static"' -o ./util-bot-go
 
-RUN go build -o /util-bot-go
-
+FROM scratch
+WORKDIR /
+COPY --from=builder  /app/util-bot-go /
 EXPOSE 8080
 
 CMD ["/util-bot-go"]
