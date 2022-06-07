@@ -18,7 +18,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: git rev-parse --short HEAD
+  IMAGE_TAG: "$(git rev-parse --short HEAD)"
 
 
 jobs:
