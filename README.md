@@ -1,1 +1,6 @@
 # util-bot-go
+
+ENV:
+
+* TELEGRAM_APITOKEN
+* ACCESS_LIST
