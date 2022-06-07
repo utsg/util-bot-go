@@ -9,6 +9,7 @@ RUN CGO_ENABLED=1 GOOS=linux go build -a -ldflags '-linkmode external -extldflag
 FROM scratch
 WORKDIR /
 COPY --from=builder  /app/util-bot-go /
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 EXPOSE 8080
 
 CMD ["/util-bot-go"]
